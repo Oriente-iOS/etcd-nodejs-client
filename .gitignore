@@ -1,0 +1,10 @@
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+package-lock.json
+node_modules
