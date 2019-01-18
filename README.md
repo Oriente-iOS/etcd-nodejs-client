@@ -6,12 +6,12 @@ A gRPC based etcd client which supports etcd V3 api, written in node.js
 * node.js version supported: > 0.12 (grpc only works on node 0.12 or above)
 
 ### About this client:
-* Currently it supports some but not all v3.0 APIs (Adding). Please check out [this](https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_reference_v3.md) for more about etcd official API. 
+* Currently it supports some but not all v3.0 APIs (Adding). Please check out [this](https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_reference_v3.md) and [this](https://coreos.com/etcd/docs/3.3.1/dev-guide/api_grpc_gateway.html) for more about etcd official API. 
 * Proto files are directly copied from etcd repo, if there is something wrong, please check create an issue here and follow the etcd official proto files.
 
 ### How to install
 ```
-npm install etcd-node-client
+npm install etcd-nodejs-client
 ```
 
 ### etcd V3.0 APIs supported (Updating):
@@ -87,8 +87,8 @@ client.kv.deleteRange({
 client.kv.txn({
   compare: [
     {
-      result: 'EQUAL',
-      target: 'CREATE',
+      result: 'EQUAL', //EQUAL|GREATER|LESS|NOT_EQUAL
+      target: 'CREATE', //CREATE|MOD|VERSION|VALUE
       key: new Buffer('name'),
       version: 1
     }
@@ -121,7 +121,7 @@ Watch is a bit different from the official v3 api, this is how we use watch:
 
 * Create a watcher on a key:
 ```javascript
-client.watcher.create({create_request: new Buffer('uid')});
+client.watcher.create({create_request: {key: new Buffer('uid')}});
 ```
 * A watcher created:
 ```javascript
